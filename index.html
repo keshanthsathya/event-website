@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>InterDept Challenge 2025</title>
+  <style>
+    :root{
+      --accent:#0b6efd;
+      --muted:#666;
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --maxw:980px;
+      --radius:12px;
+      --glass: rgba(255,255,255,0.85);
+      font-family: Inter, system-ui, Arial, sans-serif;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#e9f0ff 0%, #f6f8fb 100%);color:#111}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:20px}
+    header{display:flex;gap:16px;align-items:center}
+    .logo{width:72px;height:72px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;box-shadow:0 6px 18px rgba(11,110,253,0.18)}
+    h1{margin:0;font-size:22px}
+    p.lead{margin:6px 0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:18px}
+    .card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:0 6px 20px rgba(20,30,60,0.06)}
+    .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .btn{background:var(--accent);color:#fff;padding:8px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    .muted{color:var(--muted);font-size:13px}
+    ul{padding-left:18px;margin:6px 0}
+    .schedule{display:flex;flex-direction:column;gap:8px}
+    .event-row{display:flex;justify-content:space-between;gap:8px;padding:10px;border-radius:10px;background:linear-gradient(180deg,#fbfdff,#ffffff);align-items:center;border:1px solid #eef3ff}
+    .event-time{font-weight:700;color:var(--accent);min-width:100px}
+    form .row{display:flex;gap:8px;margin-bottom:8px}
+    form input, form textarea, form select{flex:1;padding:8px;border-radius:8px;border:1px solid #e5eefc;font-size:14px}
+    form textarea{min-height:90px;resize:vertical}
+    .small{font-size:13px;color:var(--muted)}
+    footer{margin-top:22px;text-align:center;color:var(--muted);font-size:13px}
+    @media(max-width:880px){.grid{grid-template-columns:1fr;}.logo{width:56px;height:56px}}
+    .success{background:#e9fff0;border-left:4px solid #2eb85c;padding:12px;border-radius:8px;color:#0b6b3a}
+    .danger{background:#fff0f0;border-left:4px solid #e03b3b;padding:12px;border-radius:8px;color:#8b1b1b}
+    .contact-list{display:flex;flex-direction:column;gap:8px}
+    .contact-item{display:flex;justify-content:space-between;gap:8px;padding:10px;border-radius:8px;background:#fbfcff;border:1px solid #eef3ff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">ID</div>
+      <div>
+        <h1>InterDept Challenge 2025</h1>
+        <p class="lead">Organised by the Student Council — A one-day competitive event for all departments. Date 29 Nov 2025 • Venue College Auditorium</p>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- Left column -->
+      <div>
+        <div class="card">
+          <div class="section-title">
+            <strong>About the Event</strong>
+            <span class="small">Fast, fun, fair</span>
+          </div>
+          <p>InterDept Challenge brings teams from every department to compete in quick-fire technical and creative tasks. Events include: Quiz Sprint, Circuit Build, Idea Pitch, and Rapid Prototyping.</p>
+
+          <hr style="border:0;margin:14px 0;border-top:1px solid #f0f4ff">
+
+          <div class="section-title"><strong>Schedule</strong><span class="small">Timings subject to final change</span></div>
+          <div class="schedule">
+            <div class="event-row"><div><div class="event-time">09:00</div><div class="small">Registration Opens</div></div><div class="muted">Foyer</div></div>
+            <div class="event-row"><div><div class="event-time">10:00</div><div class="small">Opening + Brief</div></div><div class="muted">Auditorium</div></div>
+            <div class="event-row"><div><div class="event-time">10:30</div><div class="small">Quiz Sprint</div></div><div class="muted">Hall A</div></div>
+            <div class="event-row"><div><div class="event-time">12:00</div><div class="small">Lunch Break</div></div><div class="muted">Cafeteria</div></div>
+            <div class="event-row"><div><div class="event-time">13:00</div><div class="small">Circuit Build</div></div><div class="muted">Lab 2</div></div>
+            <div class="event-row"><div><div class="event-time">15:00</div><div class="small">Idea Pitch</div></div><div class="muted">Room 101</div></div>
+            <div class="event-row"><div><div class="event-time">16:30</div><div class="small">Awards</div></div><div class="muted">Auditorium</div></div>
+          </div>
+
+          <hr style="border:0;margin:14px 0;border-top:1px solid #f0f4ff">
+
+          <div class="section-title"><strong>Rules</strong><span class="small">Keep it fair</span></div>
+          <ul>
+            <li>Team size: 3–5 participants</li>
+            <li>No outside internet during technical rounds unless announced</li>
+            <li>Bring valid college ID for verification</li>
+            <li>Decisions by judges are final</li>
+          </ul>
+
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <div class="section-title"><strong>Event Details</strong><span class="small">Quick references</span></div>
+          <h3 style="margin:6px 0 4px">Quiz Sprint</h3>
+          <p class="small">Rapid rounds, buzzer-style, mixed general and technical questions. Team reps only on stage.</p>
+
+          <h3 style="margin:12px 0 4px">Circuit Build</h3>
+          <p class="small">Given components, assemble a working circuit to meet an objective within 45 minutes.</p>
+
+          <h3 style="margin:12px 0 4px">Idea Pitch</h3>
+          <p class="small">Two-minute pitch followed by one-minute Q&A. Presentations only, no live demos.</p>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <aside>
+        <div class="card" style="margin-bottom:12px">
+          <div class="section-title"><strong>Register Your Team</strong><span class="small">Free entry • Limited slots</span></div>
+          <form id="regForm">
+            <div class="row">
+              <input id="teamName" required placeholder="Team name" />
+            </div>
+            <div class="row">
+              <input id="dept" required placeholder="Department (lead)" />
+              <input id="members" required placeholder="Members names comma-separated" />
+            </div>
+            <div class="row">
+              <input id="phone" required placeholder="Contact phone" pattern="[0-9+- ]{6,20}" />
+              <input id="email" required placeholder="Contact email" type="email" />
+            </div>
+            <div class="row">
+              <select id="eventPref" required>
+                <option value="">Preferred event</option>
+                <option>Quiz Sprint</option>
+                <option>Circuit Build</option>
+                <option>Idea Pitch</option>
+                <option>Any / Multiple</option>
+              </select>
+            </div>
+            <div style="margin-bottom:10px">
+              <textarea id="notes" placeholder="Any notes or accommodation requests"></textarea>
+            </div>
+
+            <div style="display:flex;gap:8px;align-items:center">
+              <button type="submit" class="btn">Submit Registration</button>
+              <button type="button" id="embedGoogle" class="btn" style="background:#3aa36b">Use Google Form</button>
+            </div>
+
+            <p class="small" style="margin-top:8px">By submitting your details you confirm the team follows event rules and will check in at registration.</p>
+          </form>
+
+          <div id="msg" style="margin-top:12px"></div>
+
+          <hr style="border:0;margin:12px 0;border-top:1px solid #f0f4ff">
+
+          <div class="section-title"><strong>Organiser Contacts</strong><span class="small">For urgent queries</span></div>
+          <div class="contact-list">
+            <div class="contact-item"><div><strong>Student Council</strong><div class="small">Event Coordinator</div></div><div class="small">council@college.edu</div></div>
+            <div class="contact-item"><div><strong>Ms. Anitha</strong><div class="small">Faculty Incharge</div></div><div class="small">+91 9xxxxxxxx</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title"><strong>Quick Setup</strong><span class="small">Publish in minutes</span></div>
+          <ol class="small">
+            <li>Create a GitHub repo named <strong>interdept-challenge</strong></li>
+            <li>Upload this index.html to the repo root</li>
+            <li>Go to Repository Settings → Pages → choose main branch → Save</li>
+            <li>Your site will be at <em>https://yourusername.github.io/interdept-challenge</em></li>
+          </ol>
+          <p class="small" style="margin-top:8px">Alternative: host this file on Netlify or Vercel via drag-and-drop for instant publishing.</p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <div class="small">Created by the Student Council • Good luck to all teams</div>
+    </footer>
+  </div>
+
+  <script>
+    // Simple registration behavior
+    const form = document.getElementById('regForm');
+    const msg = document.getElementById('msg');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      // gather values
+      const team = document.getElementById('teamName').value.trim();
+      const dept = document.getElementById('dept').value.trim();
+      const members = document.getElementById('members').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const pref = document.getElementById('eventPref').value;
+      const notes = document.getElementById('notes').value.trim();
+
+      if(!team || !dept || !members || !email) {
+        msg.innerHTML = '<div class="danger">Please fill required fields.</div>';
+        return;
+      }
+
+      // Create email body and open mail client as a fallback "registration"
+      const subject = encodeURIComponent('Registration: ' + team + ' for InterDept Challenge');
+      const body = encodeURIComponent(
+        `Team: ${team}\nDepartment: ${dept}\nMembers: ${members}\nPhone: ${phone}\nEmail: ${email}\nPreferred event: ${pref}\nNotes: ${notes}`
+      );
+      // Open user's default email client
+      window.location.href = `mailto:council@college.edu?subject=${subject}&body=${body}`;
+
+      // show success message in page
+      msg.innerHTML = '<div class="success">Registration prepared. Your mail client should open. If it does not, copy the details and send to council@college.edu</div>';
+    });
+
+    // Optional: guide for embedding Google Form
+    document.getElementById('embedGoogle').addEventListener('click', function(){
+      const info = `
+To use Google Forms centrally:
+1. Create a Google Form with the required fields (team name, dept, members, phone, email, pref, notes).
+2. Click Send → Embed HTML and copy the iframe code.
+3. Replace the registration <form> block in this file with the iframe code.
+4. Publish the page. Responses will appear in the form's spreadsheet.
+      `;
+      alert(info);
+    });
+  </script>
+</body>
+</html>
