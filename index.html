@@ -1,408 +1,763 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Buzz-A-Thon — Where Curiosity strikes before the buzzer</title>
-
-  <!-- Stylish fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buzz-A-Thon - Where Curiosity Strikes Before The Buzzer</title>
+  <script src="/_sdk/element_sdk.js"></script>
   <style>
-    :root{
-      --violet-1:#4c1d95;
-      --violet-2:#7c3aed;
-      --violet-3:#c4b5fd;
-      --accent:#ffd54a;
-      --toolbar-height:72px;
-      --max-width:1150px;
-      --glass: rgba(255,255,255,0.04);
-      --focus: 3px solid rgba(255,215,74,0.18);
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* RESET */
-    *{box-sizing:border-box}
-    html,body{height:100%; margin:0; font-family:Poppins,system-ui,-apple-system,"Segoe UI",Roboto,Arial; color:#fff;-webkit-font-smoothing:antialiased;}
-    a{color:inherit; text-decoration:none}
-    button{font-family:inherit; cursor:pointer}
-
-    /* BACKGROUND */
-    body{
-      background: linear-gradient(180deg, var(--violet-1) 0%, var(--violet-2) 50%, var(--violet-3) 100%);
-      -webkit-font-smoothing:antialiased;
-      overflow-y:auto;
+    html, body {
+      height: 100%;
+      width: 100%;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    
+    html {
+      scroll-snap-type: y proximity;
+    }
+    
+    section, .team-section {
+      scroll-snap-align: start;
+      scroll-snap-stop: normal;
     }
 
-    /* HEADER / NAV */
-    header{
-      position:fixed; left:0; right:0; top:0; height:var(--toolbar-height); display:flex; align-items:center; justify-content:center; z-index:1200;
-      background: linear-gradient(90deg, rgba(0,0,0,0.20), rgba(255,255,255,0.02));
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 28px rgba(3,3,10,0.35);
-    }
-    .nav-inner{ width:100%; max-width:var(--max-width); display:flex; gap:16px; align-items:center; padding:0 16px; }
-    .brand{ display:flex; gap:12px; align-items:center; margin-right:auto; }
-    .brand img{ width:52px; height:52px; object-fit:contain; border-radius:10px; background:rgba(255,255,255,0.02); padding:6px; border:1px solid rgba(255,255,255,0.04); }
-    .brand h1{ margin:0; font-family:Playfair Display, serif; font-size:18px; letter-spacing:0.4px; }
-
-    nav.primary{ display:flex; gap:12px; align-items:center; }
-    nav.primary a{ padding:8px 10px; border-radius:8px; font-weight:600; color:rgba(255,255,255,0.95); }
-    nav.primary a:focus{ outline:none; box-shadow:var(--focus); border-radius:8px; }
-
-    .register-btn{
-      margin-left:8px; padding:10px 14px; border-radius:12px; background:linear-gradient(90deg,#fff,#ffe199);
-      color:#3a0f4f; font-weight:800; box-shadow: 0 8px 28px rgba(124,58,237,0.12);
-    }
-    .register-btn:focus{ outline:none; box-shadow:var(--focus); }
-
-    /* Mobile burger */
-    .burger{ display:none; background:transparent; border:0; color:#fff; font-size:22px; padding:8px; border-radius:8px; }
-    .burger:focus{ outline:none; box-shadow:var(--focus); }
-
-    /* LAYOUT: full-page vertical sections with scroll-snap */
-    main{ margin-top:var(--toolbar-height); height:calc(100vh - var(--toolbar-height)); overflow-y:auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling:touch; }
-    section{ min-height:calc(100vh - var(--toolbar-height)); padding:36px 18px; display:flex; align-items:center; justify-content:center; scroll-snap-align:start; transition:transform .6s cubic-bezier(.2,.9,.2,1), opacity .5s ease; will-change:transform,opacity; }
-    section[data-visible="false"]{ opacity:0; transform:translateY(30px) scale(.998); }
-    section[data-visible="true"]{ opacity:1; transform:translateY(0) scale(1); }
-
-    .container{ width:100%; max-width:var(--max-width); margin:0 auto; }
-
-    /* INTRO SECTION: background video + overlay */
-    .intro-wrap{ width:100%; display:grid; grid-template-columns: 1fr 420px; gap:28px; align-items:center; }
-    .intro-left{ min-width:0; }
-    .intro-card{ background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(255,255,255,0.02)); padding:22px; border-radius:12px; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 18px 44px rgba(3,3,10,0.42); }
-    .kicker{ font-size:13px; color:rgba(255,255,255,0.86); margin:0 0 8px 0; }
-    .title{ font-family:Playfair Display, serif; font-size:46px; margin:0 0 8px 0; line-height:1; }
-    .subtitle{ font-size:16px; color:rgba(255,255,255,0.9); margin:0 0 12px 0; }
-    .meta{ font-size:14px; color:rgba(255,255,255,0.86); margin-top:8px; }
-
-    .cta-row{ display:flex; gap:12px; margin-top:14px; flex-wrap:wrap; }
-    .btn{ padding:10px 14px; border-radius:10px; background:transparent; border:2px solid rgba(255,255,255,0.08); color:#fff; font-weight:700; }
-    .btn.primary{ background:linear-gradient(90deg,#8b5cf6,#7c3aed); border:0; box-shadow: 0 10px 30px rgba(124,58,237,0.12); }
-
-    .intro-right{ display:flex; flex-direction:column; gap:12px; align-items:center; }
-    .visual{ width:100%; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); }
-    .visual img{ width:100%; display:block; height:280px; object-fit:cover; }
-
-    .logo-row{ display:flex; gap:12px; align-items:center; width:100%; padding:10px; }
-    .logo-row img{ width:80px; height:80px; object-fit:contain; background:rgba(255,255,255,0.02); padding:8px; border-radius:12px; border:1px solid rgba(255,255,255,0.03); }
-
-    /* video as background in intro card */
-    .intro-bg{
-      position:relative; border-radius:12px; overflow:hidden; min-height:320px;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .intro-bg video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; filter:brightness(0.45) contrast(1.05); }
-    .intro-overlay{ position:relative; z-index:5; padding:20px; width:100%; }
-
-    /* ROUNDS: horizontal alignment */
-    .rounds-row{ display:flex; gap:14px; align-items:stretch; justify-content:space-between; margin-top:14px; flex-wrap:wrap; }
-    .round-card{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 12px 34px rgba(0,0,0,0.32); flex:1 1 280px; min-width:200px; display:flex; flex-direction:column; gap:10px; }
-    .round-card h4{ font-family:Playfair Display, serif; margin:0; font-size:18px; }
-    .round-card p{ margin:0; color:rgba(255,255,255,0.92); font-size:14px; line-height:1.35; }
-
-    .suspense{ margin-top:8px; font-weight:700; color:#ffd; background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,215,74,0.06)); padding:8px; border-radius:8px; font-size:13px; }
-
-    /* RULES & OUTCOMES */
-    .content-box{ padding:20px; border-radius:12px; background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.04); box-shadow: 0 12px 36px rgba(0,0,0,0.28); }
-    ol.rules{ margin:0; padding-left:18px; }
-    ol.rules li{ margin:12px 0; color:rgba(255,255,255,0.94); font-size:15px; }
-
-    /* FINAL REGISTER + ORGANIZERS (no separate contact section) */
-    .register-area{ display:flex; align-items:center; justify-content:center; gap:18px; margin-top:16px; flex-wrap:wrap; }
-    .register-large{ padding:12px 18px; border-radius:12px; background:linear-gradient(90deg,#fff,#ffe199); color:#3a0f4f; font-weight:800; text-decoration:none; }
-
-    /* FOOTER / ORGANIZERS */
-    footer{ padding:36px 18px; }
-    .organizers{ width:100%; max-width:var(--max-width); margin:0 auto; display:flex; flex-direction:column; gap:12px; align-items:center; }
-    .team-list{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:8px; }
-    .person{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:12px 16px; border-radius:12px; min-width:200px; text-align:center; border:1px solid rgba(255,255,255,0.03); }
-    .person .name{ font-family:Playfair Display, serif; font-size:16px; margin:0; color:#fff; }
-    .person .role{ font-size:13px; color:rgba(255,255,255,0.88); margin-top:6px; }
-    .person .phone{ font-size:13px; color:rgba(255,255,255,0.78); margin-top:6px; }
-
-    /* small screens */
-    @media (max-width:980px){
-      .intro-wrap{ grid-template-columns: 1fr; }
-      nav.primary{ display:none; }
-      .burger{ display:inline-flex; margin-left:auto; }
-      .visual img{ height:220px; }
-      .intro-bg{ min-height:260px; }
-      .title{ font-size:34px; }
-      .rounds-row{ gap:12px; flex-direction:column; }
-      .person{ min-width:140px; }
+    body {
+      font-family: 'Orbitron', 'Rajdhani', sans-serif;
+      background: linear-gradient(135deg, #0a0015 0%, #1a0b2e 25%, #2d1b4e 50%, #3d2670 75%, #4a1f7a 100%);
+      color: #ffffff;
     }
 
-    @media (max-width:480px){
-      .title{ font-size:28px; }
-      header{ height:64px; }
-      main{ margin-top:64px; height:calc(100vh - 64px); }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      background: linear-gradient(135deg, rgba(10, 0, 21, 0.95), rgba(26, 11, 46, 0.95));
+      backdrop-filter: blur(10px);
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      z-index: 1000;
+      border-bottom: 2px solid rgba(138, 43, 226, 0.5);
+    }
+
+    .nav-link {
+      color: #e0d4f7;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .nav-link:hover {
+      color: #bb86fc;
+      background: rgba(187, 134, 252, 0.1);
+      transform: translateY(-2px);
+    }
+
+    section {
+      min-height: 100%;
+      width: 100%;
+      padding: 6rem 2rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      animation: fadeInSection 1s ease-out forwards;
+    }
+    
+    @keyframes fadeInSection {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #intro {
+      position: relative;
+      background: linear-gradient(135deg, rgba(10, 0, 21, 0.95) 0%, rgba(45, 27, 78, 0.9) 50%, rgba(74, 31, 122, 0.85) 100%);
+      overflow: hidden;
+    }
+
+    .video-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    .intro-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 900px;
+    }
+
+    .event-logo {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 2rem;
+      background: linear-gradient(135deg, #bb86fc, #6200ea);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      box-shadow: 0 0 40px rgba(187, 134, 252, 0.6);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(187, 134, 252, 0.6); }
+      50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(187, 134, 252, 0.9); }
+    }
+
+    h1 {
+      font-size: 4.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #bb86fc, #ffffff, #6200ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .tagline {
+      font-size: 1.6rem;
+      color: #d4b3ff;
+      font-style: italic;
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+
+    .intro-details {
+      background: rgba(98, 0, 234, 0.2);
+      border: 2px solid rgba(187, 134, 252, 0.3);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-top: 2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .intro-details p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #e0d4f7;
+      margin-bottom: 1rem;
+    }
+
+    .intro-details strong {
+      color: #bb86fc;
+    }
+
+    #rounds {
+      background: linear-gradient(135deg, rgba(26, 11, 46, 0.98) 0%, rgba(45, 27, 78, 0.95) 50%, rgba(61, 38, 112, 0.95) 100%);
+    }
+
+    .section-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #bb86fc;
+      margin-bottom: 3rem;
+      text-align: center;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(187, 134, 252, 0.5);
+    }
+
+    .rounds-container {
+      display: flex;
+      gap: 2rem;
+      max-width: 1400px;
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .round-card {
+      flex: 1;
+      min-width: 300px;
+      max-width: 400px;
+      background: linear-gradient(135deg, rgba(98, 0, 234, 0.3), rgba(187, 134, 252, 0.1));
+      border: 2px solid rgba(187, 134, 252, 0.4);
+      border-radius: 20px;
+      padding: 2.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .round-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(187, 134, 252, 0.1) 0%, transparent 70%);
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .round-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(187, 134, 252, 0.4);
+      border-color: #bb86fc;
+    }
+
+    .round-number {
+      font-size: 1rem;
+      color: #d4b3ff;
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .round-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #bb86fc;
+      margin-bottom: 1.5rem;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .round-description {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #e0d4f7;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .secret-clue {
+      background: rgba(255, 215, 0, 0.15);
+      border: 2px solid rgba(255, 215, 0, 0.5);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      font-style: italic;
+      color: #ffd700;
+      font-size: 1rem;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+      50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+    }
+
+    #rules {
+      background: linear-gradient(135deg, rgba(10, 0, 21, 0.98) 0%, rgba(26, 11, 46, 0.96) 50%, rgba(45, 27, 78, 0.95) 100%);
+    }
+
+    .rules-container {
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .rule-item {
+      background: rgba(98, 0, 234, 0.2);
+      border-left: 4px solid #bb86fc;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .rule-item:hover {
+      background: rgba(98, 0, 234, 0.3);
+      border-left-width: 6px;
+      transform: translateX(10px);
+    }
+
+    .rule-item strong {
+      color: #bb86fc;
+      font-size: 1.2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .rule-item p {
+      color: #e0d4f7;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .register-section {
+      margin-top: 4rem;
+      text-align: center;
+    }
+
+    .register-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #bb86fc, #6200ea);
+      color: #ffffff;
+      font-size: 1.5rem;
+      font-weight: 700;
+      padding: 1.5rem 4rem;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(187, 134, 252, 0.5);
+      border: none;
+      cursor: pointer;
+    }
+
+    .register-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(187, 134, 252, 0.7);
+      background: linear-gradient(135deg, #6200ea, #bb86fc);
+    }
+
+    .team-section {
+      background: linear-gradient(135deg, rgba(61, 38, 112, 0.98) 0%, rgba(45, 27, 78, 0.96) 50%, rgba(26, 11, 46, 0.95) 100%);
+      padding: 4rem 2rem;
+      width: 100%;
+      opacity: 0;
+      animation: fadeInSection 1s ease-out forwards;
+    }
+
+    .team-title {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #bb86fc;
+      text-align: center;
+      margin-bottom: 3rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .team-member {
+      background: rgba(98, 0, 234, 0.2);
+      border: 2px solid rgba(187, 134, 252, 0.3);
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .team-member:hover {
+      transform: translateY(-5px);
+      border-color: #bb86fc;
+      box-shadow: 0 10px 30px rgba(187, 134, 252, 0.3);
+    }
+
+    .member-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #bb86fc;
+      margin-bottom: 0.5rem;
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    .member-role {
+      font-size: 1.1rem;
+      color: #d4b3ff;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    .member-phone-link {
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .member-phone-link:hover {
+      transform: scale(1.05);
+    }
+
+    .member-phone {
+      font-size: 1.1rem;
+      color: #e0d4f7;
+      font-family: 'Courier New', monospace;
+      padding: 0.5rem 1rem;
+      background: rgba(187, 134, 252, 0.1);
+      border-radius: 8px;
+      border: 1px solid rgba(187, 134, 252, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .member-phone:hover {
+      background: rgba(187, 134, 252, 0.2);
+      border-color: #bb86fc;
+      color: #bb86fc;
+    }
+
+    .member-phone:empty {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        gap: 1.5rem;
+        padding: 1rem;
+      }
+
+      .nav-link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .tagline {
+        font-size: 1.2rem;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+      }
+
+      .rounds-container {
+        flex-direction: column;
+      }
+
+      .round-card {
+        max-width: 100%;
+      }
+
+      .event-logo {
+        width: 120px;
+        height: 120px;
+        font-size: 3rem;
+      }
+
+      .register-button {
+        font-size: 1.2rem;
+        padding: 1.2rem 3rem;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
-</head>
-<body>
-  <header>
-    <div class="nav-inner">
-      <div class="brand" role="banner">
-        <!-- Replace src with your logo -->
-        <img id="logoTop" src="placeholder-logo.png" alt="Buzz-A-Thon logo">
-        <h1>Buzz-A-Thon</h1>
-      </div>
-
-      <nav class="primary" aria-label="Main navigation">
-        <a href="#about">ABOUT</a>
-        <a href="#rounds">ROUNDS</a>
-        <a href="#rules">RULES</a>
-        <!-- Replace the URL with your Google Form URL -->
-        <a class="register-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdH-7eBIijpIulwzXV0hLVMXX-JWGE-yAdDcPUGaCf-aI3syw/viewform?usp=dialog" rel="noopener">Register Now</a>
-      </nav>
-
-      <button class="burger" id="burgerBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">☰</button>
-    </div>
-  </header>
-
-  <!-- Mobile menu -->
-  <nav id="mobileMenu" aria-hidden="true" style="display:none; position:fixed; inset:72px 12px auto 12px; z-index:1100;">
-    <div style="padding:12px; border-radius:12px; background: linear-gradient(180deg, rgba(0,0,0,0.24), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.04); box-shadow:0 10px 36px rgba(0,0,0,0.4);">
-      <a href="#about" style="display:block;padding:10px 12px; color:#fff; text-decoration:none; border-radius:8px;">ABOUT</a>
-      <a href="#rounds" style="display:block;padding:10px 12px; color:#fff; text-decoration:none; border-radius:8px;">ROUNDS</a>
-      <a href="#rules" style="display:block;padding:10px 12px; color:#fff; text-decoration:none; border-radius:8px;">RULES</a>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdH-7eBIijpIulwzXV0hLVMXX-JWGE-yAdDcPUGaCf-aI3syw/viewform?usp=dialog" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;padding:10px 12px;background:linear-gradient(90deg,#fff,#ffe199);color:#3a0f4f;font-weight:800;border-radius:10px;text-decoration:none;">Register Now</a>
-    </div>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <nav class="navbar"><a href="#intro" class="nav-link">ABOUT</a> <a href="#rounds" class="nav-link">ROUNDS</a> <a href="#rules" class="nav-link">RULES</a>
   </nav>
-
-  <main id="main" tabindex="0">
-    <!-- ABOUT / INTRO -->
-    <section id="about" aria-labelledby="aboutHeading" data-visible="false">
-      <div class="container">
-        <div class="intro-wrap" role="region" aria-label="Introduction">
-          <div class="intro-left">
-            <div class="intro-card intro-bg" aria-hidden="false">
-              <!-- Background video for intro (replace src). muted for autoplay; loop for continuous motion -->
-              <video id="introVideo" src="placeholder-intro-video.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
-
-              <!-- overlay content -->
-              <div class="intro-overlay">
-                <p class="kicker">A live buzzer competition</p>
-                <h2 id="aboutHeading" class="title">Buzz-A-Thon</h2>
-                <p class="subtitle">Where Curiosity strikes before the buzzer</p>
-                <p class="meta">Teams: no upper limit. Each team should have at least 3–4 members. Prepare for fast rounds, puzzles and suspenseful secret drops.</p>
-
-                <div class="cta-row" role="toolbar" aria-label="Intro actions">
-                  <a class="btn primary" href="#rounds">See Rounds</a>
-                  <a class="btn" href="#rules">See Rules</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <aside class="intro-right" aria-label="Event visuals">
-            <div class="visual" role="img" aria-label="Event photo">
-              <!-- replace with actual event picture -->
-              <img src="placeholder-event.jpg" alt="Buzz-A-Thon event photo">
-            </div>
-
-            <div class="logo-row">
-              <!-- small logo -->
-              <img src="WhatsApp Image 2025-11-22 at 17.40.16_c4cb5c68.png" alt="Buzz-A-Thon logo small">
-              <div style="flex:1;">
-                <div style="font-family:Playfair Display, serif; font-weight:700;">Official Event</div>
-                <div style="font-size:13px; color:rgba(255,255,255,0.9);">Add date and venue here</div>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <!-- ROUNDS SECTION -->
-    <section id="rounds" aria-labelledby="roundsHeading" data-visible="false">
-      <div class="container">
-        <div class="content-box">
-          <h3 id="roundsHeading" style="font-family:Playfair Display, serif; font-size:28px; margin:0 0 8px 0;">Rounds</h3>
-          <p style="margin:0 0 12px 0; color:rgba(255,255,255,0.9);">Three progressively challenging rounds. Short descriptions below.</p>
-
-          <!-- horizontal alignment -->
-          <div class="rounds-row" role="list" aria-label="Round descriptions">
-            <div class="round-card" role="listitem" aria-labelledby="r1">
-              <h4 id="r1">RAPID SPARK</h4>
-              <p>Straightforward, fast-paced questions. Quickest buzzer wins. No lag, no hesitation.</p>
-              <div class="meta">All teams start here.</div>
-            </div>
-
-            <div class="round-card" role="listitem" aria-labelledby="r2">
-              <h4 id="r2">MIND MAZE</h4>
-              <p>Visual and logo puzzles, abstract clues, cryptic hints. Teams filtered from Round 1 participate here. Team must decode and buzz before rivals.</p>
-              <div class="meta">Filtered teams only.</div>
-            </div>
-
-            <div class="round-card" role="listitem" aria-labelledby="r3">
-              <h4 id="r3">THE FINAL STRIKE</h4>
-              <p>High difficulty questions, negative points, power-ups allowed. One mistake can flip the leaderboard.</p>
-              <div class="suspense">Secret clue drops; random on-screen hints appear without warning. Spot it first and you earn a bonus question.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- RULES SECTION -->
-    <section id="rules" aria-labelledby="rulesHeading" data-visible="false">
-      <div class="container">
-        <div class="content-box">
-          <h3 id="rulesHeading" style="font-family:Playfair Display, serif; font-size:28px; margin:0 0 8px 0;">Rules</h3>
-          <p style="margin:0 0 12px 0; color:rgba(255,255,255,0.9);">Read the competition rules carefully to avoid penalties.</p>
-
-          <ol class="rules" aria-label="Event rules">
-            <li><strong>Early Buzz Rule (3-Second Challenge)</strong>: Buzz early; answer within 3 seconds. Wrong answer = -2 points.</li>
-            <li><strong>Visual Silence Rule</strong>: No pointing, signaling, or non-verbal hints. First warning; repeated offense = -1 point.</li>
-            <li><strong>Mystic Swap Rule</strong>: Teams may swap ONE question with another team per round. Only the difficulty level is shown, not the question.</li>
-            <li><strong>Decoy Question Trap</strong>: One question each round is a decoy. Correct answer = Double Points; Wrong answer = -2 points. No one knows which question it is.</li>
-            <li><strong>Focus Mode Rule</strong>: Only the designated answerer may speak during questioning. Violation = question void for that team.</li>
-            <li><strong>Team Harmony Rule</strong>: Loud arguments = -1 point. STAY SHARP, STAY CLASSY.</li>
-            <li><strong>Mystic Moment Bonus</strong>: 3 correct answers in a row unlock MYSTIC MOMENT: skip one future question without penalty.</li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <!-- FINAL / REGISTER + ORGANIZERS (no separate contact) -->
-    <section id="final" aria-labelledby="finalHeading" data-visible="false">
-      <div class="container">
-        <div class="content-box" style="display:flex;flex-direction:column;gap:14px;align-items:center;">
-          <h3 id="finalHeading" style="font-family:Playfair Display, serif; font-size:26px; margin:0;">Ready to compete?</h3>
-          <p style="margin:0; color:rgba(255,255,255,0.9);">Register your team now. Each team should have 3–4 members. No limit on number of teams.</p>
-
-          <div class="register-area" role="region" aria-label="Registration">
-            <!-- Replace with your Google Forms link -->
-            <a class="register-large" href="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform" target="_blank" rel="noopener">Register Now</a>
-            <a class="btn" href="#rules">Event Rules</a>
-          </div>
-
-          <div style="width:100%; max-width:900px; margin-top:8px; text-align:center; font-size:13px; color:rgba(255,255,255,0.88);">
-            For queries, contact the organizing team listed below.
-          </div>
-        </div>
-
-        <!-- organizers -->
-        <footer style="margin-top:18px;">
-          <div class="organizers" role="contentinfo" aria-label="Organizers">
-            <div style="font-family:Playfair Display, serif; font-size:20px; font-weight:700;">Organizing Team</div>
-
-            <div class="team-list" id="teamList" aria-live="polite">
-              <!-- Replace with real names and phone numbers -->
-              <div class="person">
-                <div class="name">V I Barid Baran</div>
-                <div class="role">Coordinator</div>
-                <div class="phone">+91 89397 19324</div>
-              </div>
-
-              <div class="person">
-                <div class="name">Keshanth Sathya</div>
-                <div class="role">Co-Coordinator</div>
-                <div class="phone">+91 94874 03704</div>
-              </div>
-
-              <div class="person">
-                <div class="name">Lavanya K</div>
-                <div class="role">Volunteer</div>
-                <div class="phone">iidfjfdk</div>
-              </div>
-
-              <div class="person">
-                <div class="name">Samithra P</div>
-                <div class="role">Volunteer</div>
-                <div class="phone">+91 </div>
-              </div>
-
-              <div class="person">
-                <div class="name">Akash B</div>
-                <div class="role">Volunteer</div>
-                <div class="phone">+91 </div>
-              </div>
-
-              <div class="person">
-                <div class="name">Srisakthi Priya D</div>
-                <div class="role">Volunteer</div>
-                <div class="phone">4541</div>
-              </div>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </section>
-  </main>
-
+  <section id="intro">
+   <video class="video-background" autoplay muted loop playsinline><source src="https://assets.mixkit.co/videos/preview/mixkit-digital-particles-flowing-4554-large.mp4" type="video/mp4">
+   </video>
+   <div class="intro-content">
+    <div class="event-logo">
+     ⚡
+    </div>
+    <h1 id="event-title">BUZZ-A-THON</h1>
+    <p class="tagline" id="event-tagline">Where Curiosity Strikes Before The Buzzer</p>
+    <div class="intro-details">
+     <p><strong>3 Thrilling Rounds</strong> | <strong>Unlimited Teams</strong> | <strong>3-4 Members per Team</strong></p>
+     <p>Test your knowledge, speed, and strategy in the ultimate quiz competition where every second counts and every decision matters!</p>
+    </div>
+   </div>
+  </section>
+  <section id="rounds">
+   <h2 class="section-title">The Rounds</h2>
+   <div class="rounds-container">
+    <div class="round-card">
+     <p class="round-number">ROUND 1</p>
+     <h3 class="round-title">RAPID SPARK</h3>
+     <p class="round-description">Straightforward, fast-paced questions. Quickest buzzer wins. No lag, no hesitation.</p>
+    </div>
+    <div class="round-card">
+     <p class="round-number">ROUND 2</p>
+     <h3 class="round-title">MIND MAZE</h3>
+     <p class="round-description">Visual and logo puzzles, abstract clues, cryptic hints. Teams must decode and buzz before rivals.</p>
+     <p class="round-description" style="margin-top: 1rem; font-style: italic; color: #d4b3ff;">Only filtered teams from Round 1 can participate.</p>
+    </div>
+    <div class="round-card">
+     <p class="round-number">ROUND 3</p>
+     <h3 class="round-title">THE FINAL STRIKE</h3>
+     <p class="round-description">High difficulty questions + negative points + power-ups allowed. One mistake can flip the leaderboard.</p>
+     <div class="secret-clue">
+      💫 Secret clue drops: Random on-screen hints appear without warning. Spot it first, you earn a bonus question!
+     </div>
+    </div>
+   </div>
+  </section>
+  <section id="rules">
+   <h2 class="section-title">Rules of Engagement</h2>
+   <div class="rules-container">
+    <div class="rule-item"><strong>1. Early Buzz Rule (3-Second Challenge)</strong>
+     <p>Buzz early, answer within 3 seconds. Wrong = -2 points.</p>
+    </div>
+    <div class="rule-item"><strong>2. Visual Silence Rule</strong>
+     <p>No pointing, signaling, or non-verbal hints. Warning. Repeat = -1 point.</p>
+    </div>
+    <div class="rule-item"><strong>3. Mystic Swap Rule</strong>
+     <p>Teams can swap ONE question with another team per round. Only the difficulty level is shown, not the question.</p>
+    </div>
+    <div class="rule-item"><strong>4. Decoy Question Trap</strong>
+     <p>One question each round is a decoy. Correct answer = Double Points ✗ Wrong answer = -2 points. No one knows which question it is.</p>
+    </div>
+    <div class="rule-item"><strong>5. Focus Mode Rule</strong>
+     <p>Only the designated answerer may speak during questioning. Violation = Question void for that team.</p>
+    </div>
+    <div class="rule-item"><strong>6. Team Harmony Rule</strong>
+     <p>Loud Arguments = -1 Point. STAY SHARP, STAY CLASSY.</p>
+    </div>
+    <div class="rule-item"><strong>7. Mystic Moment Bonus</strong>
+     <p>3 Correct Answers in a row, unlock MYSTIC MOMENT: Skip one future question without penalty.</p>
+    </div>
+   </div>
+   <div class="register-section"><a href="https://forms.google.com/" target="_blank" rel="noopener noreferrer" class="register-button" id="register-btn">REGISTER NOW</a>
+   </div>
+  </section>
+  <div class="team-section">
+   <h2 class="team-title">Organizing Team</h2>
+   <div class="team-grid">
+    <div class="team-member">
+     <div class="member-name" id="coordinator-name">
+      John Doe
+     </div>
+     <div class="member-role">
+      Coordinator
+     </div><a href="tel:" class="member-phone-link" id="coordinator-phone-link">
+      <div class="member-phone" id="coordinator-phone"></div></a>
+    </div>
+    <div class="team-member">
+     <div class="member-name" id="co-coordinator-name">
+      Jane Smith
+     </div>
+     <div class="member-role">
+      Co-Coordinator
+     </div><a href="tel:" class="member-phone-link" id="co-coordinator-phone-link">
+      <div class="member-phone" id="co-coordinator-phone"></div></a>
+    </div>
+    <div class="team-member">
+     <div class="member-name" id="volunteer1-name">
+      Lavanya K
+     </div>
+     <div class="member-role">
+      Question Master
+     </div><a href="tel:" class="member-phone-link" id="volunteer1-phone-link">
+      <div class="member-phone" id="volunteer1-phone"></div></a>
+    </div>
+    <div class="team-member">
+     <div class="member-name" id="volunteer2-name">
+      Samithra P
+     </div>
+     <div class="member-role">
+      Scorekeeper &amp; Research Lead
+     </div><a href="tel:" class="member-phone-link" id="volunteer2-phone-link">
+      <div class="member-phone" id="volunteer2-phone"></div></a>
+    </div>
+    <div class="team-member">
+     <div class="member-name" id="volunteer3-name">
+      Akash B
+     </div>
+     <div class="member-role">
+      Tech Lead
+     </div><a href="tel:" class="member-phone-link" id="volunteer3-phone-link">
+      <div class="member-phone" id="volunteer3-phone"></div></a>
+    </div>
+    <div class="team-member">
+     <div class="member-name" id="volunteer4-name">
+      Srisakthi Priya D
+     </div>
+     <div class="member-role">
+      Buzzer &amp; Research Lead
+     </div><a href="tel:" class="member-phone-link" id="volunteer4-phone-link">
+      <div class="member-phone" id="volunteer4-phone"></div></a>
+    </div>
+   </div>
+  </div>
   <script>
-    /* Mobile menu toggle */
-    (function(){
-      const burger = document.getElementById('burgerBtn');
-      const mobile = document.getElementById('mobileMenu');
-      burger?.addEventListener('click', ()=>{
-        const open = burger.getAttribute('aria-expanded') === 'true';
-        burger.setAttribute('aria-expanded', String(!open));
-        if(open){
-          mobile.style.display = 'none';
-          mobile.setAttribute('aria-hidden','true');
-        } else {
-          mobile.style.display = 'block';
-          mobile.setAttribute('aria-hidden','false');
+    const defaultConfig = {
+      event_title: "BUZZ-A-THON",
+      event_tagline: "Where Curiosity Strikes Before The Buzzer",
+      register_button_text: "REGISTER NOW",
+      google_form_url: "https://docs.google.com/forms/d/e/1FAIpQLSdH-7eBIijpIulwzXV0hLVMXX-JWGE-yAdDcPUGaCf-aI3syw/viewform?usp=dialog",
+      coordinator_name: "V I Barid Baran",
+      coordinator_phone: "+91 89397 19324",
+      co_coordinator_name: "Keshanth Sathya",
+      co_coordinator_phone: "+91 94874 03704",
+      volunteer1_name: "Lavanya K",
+      volunteer1_phone: "",
+      volunteer2_name: "Samithra P",
+      volunteer2_phone: "",
+      volunteer3_name: "Akash B",
+      volunteer3_phone: "",
+      volunteer4_name: "Srisakthi Priya D",
+      volunteer4_phone: ""
+    };
+
+    async function onConfigChange(config) {
+      document.getElementById('event-title').textContent = config.event_title || defaultConfig.event_title;
+      document.getElementById('event-tagline').textContent = config.event_tagline || defaultConfig.event_tagline;
+      
+      const registerBtn = document.getElementById('register-btn');
+      registerBtn.textContent = config.register_button_text || defaultConfig.register_button_text;
+      registerBtn.href = config.google_form_url || defaultConfig.google_form_url;
+      
+      // Update coordinator
+      document.getElementById('coordinator-name').textContent = config.coordinator_name || defaultConfig.coordinator_name;
+      const coordinatorPhone = config.coordinator_phone || defaultConfig.coordinator_phone;
+      document.getElementById('coordinator-phone').textContent = coordinatorPhone;
+      document.getElementById('coordinator-phone-link').href = `tel:${coordinatorPhone}`;
+      
+      // Update co-coordinator
+      document.getElementById('co-coordinator-name').textContent = config.co_coordinator_name || defaultConfig.co_coordinator_name;
+      const coCoordinatorPhone = config.co_coordinator_phone || defaultConfig.co_coordinator_phone;
+      document.getElementById('co-coordinator-phone').textContent = coCoordinatorPhone;
+      document.getElementById('co-coordinator-phone-link').href = `tel:${coCoordinatorPhone}`;
+      
+      // Update volunteer 1
+      document.getElementById('volunteer1-name').textContent = config.volunteer1_name || defaultConfig.volunteer1_name;
+      const volunteer1Phone = config.volunteer1_phone || defaultConfig.volunteer1_phone;
+      document.getElementById('volunteer1-phone').textContent = volunteer1Phone;
+      document.getElementById('volunteer1-phone-link').href = `tel:${volunteer1Phone}`;
+      
+      // Update volunteer 2
+      document.getElementById('volunteer2-name').textContent = config.volunteer2_name || defaultConfig.volunteer2_name;
+      const volunteer2Phone = config.volunteer2_phone || defaultConfig.volunteer2_phone;
+      document.getElementById('volunteer2-phone').textContent = volunteer2Phone;
+      document.getElementById('volunteer2-phone-link').href = `tel:${volunteer2Phone}`;
+      
+      // Update volunteer 3
+      document.getElementById('volunteer3-name').textContent = config.volunteer3_name || defaultConfig.volunteer3_name;
+      const volunteer3Phone = config.volunteer3_phone || defaultConfig.volunteer3_phone;
+      document.getElementById('volunteer3-phone').textContent = volunteer3Phone;
+      document.getElementById('volunteer3-phone-link').href = `tel:${volunteer3Phone}`;
+      
+      // Update volunteer 4
+      document.getElementById('volunteer4-name').textContent = config.volunteer4_name || defaultConfig.volunteer4_name;
+      const volunteer4Phone = config.volunteer4_phone || defaultConfig.volunteer4_phone;
+      document.getElementById('volunteer4-phone').textContent = volunteer4Phone;
+      document.getElementById('volunteer4-phone-link').href = `tel:${volunteer4Phone}`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["event_title", config.event_title || defaultConfig.event_title],
+        ["event_tagline", config.event_tagline || defaultConfig.event_tagline],
+        ["register_button_text", config.register_button_text || defaultConfig.register_button_text],
+        ["google_form_url", config.google_form_url || defaultConfig.google_form_url],
+        ["coordinator_name", config.coordinator_name || defaultConfig.coordinator_name],
+        ["coordinator_phone", config.coordinator_phone || defaultConfig.coordinator_phone],
+        ["co_coordinator_name", config.co_coordinator_name || defaultConfig.co_coordinator_name],
+        ["co_coordinator_phone", config.co_coordinator_phone || defaultConfig.co_coordinator_phone],
+        ["volunteer1_name", config.volunteer1_name || defaultConfig.volunteer1_name],
+        ["volunteer1_phone", config.volunteer1_phone || defaultConfig.volunteer1_phone],
+        ["volunteer2_name", config.volunteer2_name || defaultConfig.volunteer2_name],
+        ["volunteer2_phone", config.volunteer2_phone || defaultConfig.volunteer2_phone],
+        ["volunteer3_name", config.volunteer3_name || defaultConfig.volunteer3_name],
+        ["volunteer3_phone", config.volunteer3_phone || defaultConfig.volunteer3_phone],
+        ["volunteer4_name", config.volunteer4_name || defaultConfig.volunteer4_name],
+        ["volunteer4_phone", config.volunteer4_phone || defaultConfig.volunteer4_phone]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Intersection Observer for smooth scroll animations
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          
+          // Stagger animations for child elements
+          const children = entry.target.querySelectorAll('.round-card, .rule-item, .team-member');
+          children.forEach((child, index) => {
+            setTimeout(() => {
+              child.style.opacity = '1';
+              child.style.transform = 'translateY(0)';
+            }, index * 100);
+          });
         }
       });
+    }, observerOptions);
 
-      // Close mobile menu on link click
-      mobile.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
-        mobile.style.display = 'none';
-        mobile.setAttribute('aria-hidden','true');
-        burger.setAttribute('aria-expanded','false');
-      }));
-    })();
+    // Observe all sections
+    document.querySelectorAll('section, .team-section').forEach(section => {
+      observer.observe(section);
+    });
 
-    /* IntersectionObserver: animate sections when they appear + ensure intro video plays */
-    (function(){
-      const sections = document.querySelectorAll('main section');
-      const introVideo = document.getElementById('introVideo');
-
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          const el = entry.target;
-          if(entry.intersectionRatio > 0.35){
-            el.dataset.visible = "true";
-            if(el.id === 'about' && introVideo){
-              // autoplay muted loop already set, but try to play in case browser paused it
-              introVideo.muted = true;
-              introVideo.play().catch(()=>{ /* autoplay may be blocked on some mobile browsers */ });
-            }
-          } else {
-            el.dataset.visible = "false";
-          }
-        });
-      }, { threshold: buildThresholdList() });
-
-      sections.forEach(s => io.observe(s));
-
-      function buildThresholdList(){
-        const thresholds = [];
-        for(let i=0;i<=100;i+=5) thresholds.push(i/100);
-        return thresholds;
-      }
-    })();
-
-    // Smooth scroll for in-page links (works for browsers that don't support CSS smooth behavior)
-    (function(){
-      document.querySelectorAll('a[href^="#"]').forEach(a=>{
-        a.addEventListener('click', function(e){
-          const target = document.querySelector(this.getAttribute('href'));
-          if(target){
-            e.preventDefault();
-            target.scrollIntoView({behavior:'smooth', block:'start'});
-          }
-        });
-      });
-    })();
-
-    // Logo click scrolls to top
-    document.getElementById('logoTop')?.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+    // Initial setup for staggered elements
+    document.querySelectorAll('.round-card, .rule-item, .team-member').forEach(element => {
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(30px)';
+      element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+    });
   </script>
-</body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a53098281bf3c58',t:'MTc2NDI2MTMxMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
