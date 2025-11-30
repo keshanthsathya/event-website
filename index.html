@@ -119,16 +119,61 @@
       max-width: 900px;
     }
 
+    .college-logo-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .college-logo {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+      border: 3px solid #bb86fc;
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .college-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .college-name {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 0 0 15px rgba(187, 134, 252, 0.6);
+    }
+
+    .department-text {
+      font-size: 1.1rem;
+      color: #d4b3ff;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+
     .event-logo {
-      width: 180px;
-      height: 180px;
-      margin: 0 auto 2rem;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 1.5rem;
       background: linear-gradient(135deg, #bb86fc, #6200ea);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 4rem;
+      font-size: 3.5rem;
       box-shadow: 0 0 40px rgba(187, 134, 252, 0.6);
       animation: pulse 3s ease-in-out infinite;
     }
@@ -138,20 +183,85 @@
       50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(187, 134, 252, 0.9); }
     }
 
+    .coming-soon-banner {
+      background: linear-gradient(135deg, rgba(187, 134, 252, 0.3), rgba(98, 0, 234, 0.4));
+      border: 3px solid #bb86fc;
+      border-radius: 20px;
+      padding: 2rem 3rem;
+      margin: 2rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: bannerPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes bannerPulse {
+      0%, 100% { 
+        box-shadow: 0 0 30px rgba(187, 134, 252, 0.6);
+        border-color: #bb86fc;
+      }
+      50% { 
+        box-shadow: 0 0 50px rgba(187, 134, 252, 0.9);
+        border-color: #d4b3ff;
+      }
+    }
+
+    .coming-soon-text {
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+      letter-spacing: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .register-now-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #bb86fc;
+      letter-spacing: 3px;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
     h1 {
-      font-size: 4.5rem;
+      font-size: 6rem;
       font-weight: 900;
       background: linear-gradient(135deg, #bb86fc, #ffffff, #6200ea);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 1rem;
-      letter-spacing: 3px;
+      letter-spacing: 5px;
       text-transform: uppercase;
+      text-shadow: 0 0 30px rgba(187, 134, 252, 0.8);
+      animation: titleGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { 
+        filter: drop-shadow(0 0 20px rgba(187, 134, 252, 0.6));
+      }
+      50% { 
+        filter: drop-shadow(0 0 40px rgba(187, 134, 252, 0.9));
+      }
     }
 
     .tagline {
-      font-size: 1.6rem;
+      font-size: 1.3rem;
       color: #d4b3ff;
       font-style: italic;
       margin-bottom: 2rem;
@@ -370,11 +480,12 @@
 
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      max-width: 1200px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
+      gap: 2.5rem;
+      max-width: 1000px;
       margin: 0 auto;
       width: 100%;
+      justify-content: center;
     }
 
     .team-member {
@@ -439,6 +550,79 @@
       display: none;
     }
 
+    .contact-section {
+      background: linear-gradient(135deg, rgba(45, 27, 78, 0.98), rgba(26, 11, 46, 0.96));
+      padding: 2.5rem 2rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    .contact-heading {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #bb86fc;
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .contact-person {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .contact-label {
+      font-size: 0.8rem;
+      color: #d4b3ff;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-name {
+      font-size: 0.95rem;
+      color: #e0d4f7;
+      font-weight: 600;
+    }
+
+    .contact-phone-link {
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .contact-phone-link:hover {
+      transform: scale(1.05);
+    }
+
+    .contact-phone {
+      font-size: 0.85rem;
+      color: #bb86fc;
+      font-family: 'Courier New', monospace;
+      padding: 0.3rem 0.8rem;
+      background: rgba(187, 134, 252, 0.1);
+      border-radius: 5px;
+      border: 1px solid rgba(187, 134, 252, 0.3);
+      display: inline-block;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .contact-phone:hover {
+      background: rgba(187, 134, 252, 0.2);
+      border-color: #bb86fc;
+      color: #d4b3ff;
+    }
+
     .footer {
       background: linear-gradient(135deg, rgba(10, 0, 21, 0.98), rgba(26, 11, 46, 0.95));
       padding: 1.5rem;
@@ -466,11 +650,11 @@
       }
 
       h1 {
-        font-size: 2.5rem;
+        font-size: 3.5rem;
       }
 
       .tagline {
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
 
       .section-title {
@@ -485,10 +669,31 @@
         max-width: 100%;
       }
 
+      .college-logo {
+        width: 80px;
+        height: 80px;
+      }
+
+      .college-name {
+        font-size: 1.3rem;
+      }
+
+      .department-text {
+        font-size: 0.85rem;
+      }
+
       .event-logo {
-        width: 120px;
-        height: 120px;
-        font-size: 3rem;
+        width: 100px;
+        height: 100px;
+        font-size: 2.5rem;
+      }
+
+      .coming-soon-text {
+        font-size: 2rem;
+      }
+
+      .register-now-text {
+        font-size: 1.2rem;
       }
 
       .register-button {
@@ -498,6 +703,11 @@
 
       .team-grid {
         grid-template-columns: 1fr;
+      }
+
+      .contact-info {
+        flex-direction: column;
+        gap: 1.5rem;
       }
     }
   </style>
@@ -509,14 +719,27 @@
   <nav class="navbar"><a href="#intro" class="nav-link">ABOUT</a> <a href="#rounds" class="nav-link">ROUNDS</a> <a href="#rules" class="nav-link">RULES</a>
   </nav>
   <section id="intro">
-   <video class="video-background" autoplay muted loop playsinline><source src="https://assets.mixkit.co/videos/preview/mixkit-digital-particles-flowing-4554-large.mp4" type="video/mp4">
+   <video class="video-background" autoplay muted loop playsinline><source src="https://drive.usercontent.google.com/download?id=1tgT6tmwL_5ce7OnrEIjNUu4fPYdyMzjT&amp;export=download&amp;authuser=0" type="video/mp4">
    </video>
    <div class="intro-content">
-    <div class="event-logo">
-     ⚡
+    <div class="college-logo-container">
+     <div class="college-logo" id="college-logo"><img src="https://i.ibb.co/mFqPp8yR/Srm-vec-logo.jpg" alt="SRM Valliammai Engineering College Logo">
+     </div>
+    </div>
+    <h2 class="college-name">SRM VALLIAMMAI ENGINEERING COLLEGE</h2>
+    <p class="department-text">Department of Electronics and Instrumentation Engineering Presents</p>
+    <div class="event-logo"><img src="https://i.ibb.co/8TNhLcf/logo.jpg" alt="Buzz-A-Thon Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;">
     </div>
     <h1 id="event-title">BUZZ-A-THON</h1>
     <p class="tagline" id="event-tagline">Where Curiosity Strikes Before The Buzzer</p>
+    <div class="coming-soon-banner">
+     <div class="coming-soon-text">
+      COMING SOON!
+     </div>
+     <div class="register-now-text">
+      REGISTER NOW
+     </div>
+    </div>
     <div class="intro-details">
      <p><strong>3 Thrilling Rounds</strong> | <strong>Unlimited Teams</strong> | <strong>3-4 Members per Team</strong></p>
      <p>Test your knowledge, speed, and strategy in the ultimate quiz competition where every second counts and every decision matters!</p>
@@ -572,7 +795,7 @@
      <p>3 Correct Answers in a row, unlock MYSTIC MOMENT: Skip one future question without penalty.</p>
     </div>
    </div>
-   <div class="register-section"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdH-7eBIijpIulwzXV0hLVMXX-JWGE-yAdDcPUGaCf-aI3syw/viewform?usp=dialog/" target="_blank" rel="noopener noreferrer" class="register-button" id="register-btn">REGISTER NOW</a>
+   <div class="register-section"><a href="https://forms.google.com/" target="_blank" rel="noopener noreferrer" class="register-button" id="register-btn">REGISTER NOW</a>
    </div>
   </section>
   <div class="team-section">
@@ -584,8 +807,7 @@
      </div>
      <div class="member-role">
       Coordinator
-     </div><a href="+91 89397 19324" class="member-phone-link" id="coordinator-phone-link">
-      <div class="member-phone" id="coordinator-phone"></div></a>
+     </div>
     </div>
     <div class="team-member">
      <div class="member-name" id="co-coordinator-name">
@@ -593,8 +815,7 @@
      </div>
      <div class="member-role">
       Co-Coordinator
-     </div><a href="+91 94874 03704" class="member-phone-link" id="co-coordinator-phone-link">
-      <div class="member-phone" id="co-coordinator-phone"></div></a>
+     </div>
     </div>
     <div class="team-member">
      <div class="member-name" id="volunteer1-name">
@@ -602,26 +823,23 @@
      </div>
      <div class="member-role">
       Question Master
-     </div><a href="tel:" class="member-phone-link" id="volunteer1-phone-link">
-      <div class="member-phone" id="volunteer1-phone"></div></a>
+     </div>
     </div>
     <div class="team-member">
      <div class="member-name" id="volunteer2-name">
       Samithra P
      </div>
      <div class="member-role">
-      Scorekeeper &amp; Research Lead
-     </div><a href="tel:" class="member-phone-link" id="volunteer2-phone-link">
-      <div class="member-phone" id="volunteer2-phone"></div></a>
+      Tech &amp; Research Lead
+     </div>
     </div>
     <div class="team-member">
      <div class="member-name" id="volunteer3-name">
       Akash B
      </div>
      <div class="member-role">
-      Tech Lead
-     </div><a href="tel:" class="member-phone-link" id="volunteer3-phone-link">
-      <div class="member-phone" id="volunteer3-phone"></div></a>
+      Scorekeeper &amp; Research Lead
+     </div>
     </div>
     <div class="team-member">
      <div class="member-name" id="volunteer4-name">
@@ -629,8 +847,16 @@
      </div>
      <div class="member-role">
       Buzzer &amp; Research Lead
-     </div><a href="tel:" class="member-phone-link" id="volunteer4-phone-link">
-      <div class="member-phone" id="volunteer4-phone"></div></a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="contact-section">
+   <h3 class="contact-heading">For Further Enquiries</h3>
+   <div class="contact-info">
+    <div class="contact-person"><span class="contact-label">Coordinator:</span> <span class="contact-name" id="contact-coordinator-name">V I Barid Baran</span> <a href="tel:45687468745" class="contact-phone-link"> <span class="contact-phone" id="contact-coordinator-phone">+45687468745</span> </a>
+    </div>
+    <div class="contact-person"><span class="contact-label">Co-Coordinator:</span> <span class="contact-name" id="contact-co-coordinator-name">Keshanth Sathya</span> <a href="tel:4925425421" class="contact-phone-link"> <span class="contact-phone" id="contact-co-coordinator-phone">+4925425421</span> </a>
     </div>
    </div>
   </div>
@@ -665,41 +891,22 @@
       registerBtn.textContent = config.register_button_text || defaultConfig.register_button_text;
       registerBtn.href = config.google_form_url || defaultConfig.google_form_url;
       
-      // Update coordinator
+      // Update organizing team
       document.getElementById('coordinator-name').textContent = config.coordinator_name || defaultConfig.coordinator_name;
-      const coordinatorPhone = config.coordinator_phone || defaultConfig.coordinator_phone;
-      document.getElementById('coordinator-phone').textContent = coordinatorPhone;
-      document.getElementById('coordinator-phone-link').href = `tel:${coordinatorPhone}`;
-      
-      // Update co-coordinator
       document.getElementById('co-coordinator-name').textContent = config.co_coordinator_name || defaultConfig.co_coordinator_name;
-      const coCoordinatorPhone = config.co_coordinator_phone || defaultConfig.co_coordinator_phone;
-      document.getElementById('co-coordinator-phone').textContent = coCoordinatorPhone;
-      document.getElementById('co-coordinator-phone-link').href = `tel:${coCoordinatorPhone}`;
-      
-      // Update volunteer 1
       document.getElementById('volunteer1-name').textContent = config.volunteer1_name || defaultConfig.volunteer1_name;
-      const volunteer1Phone = config.volunteer1_phone || defaultConfig.volunteer1_phone;
-      document.getElementById('volunteer1-phone').textContent = volunteer1Phone;
-      document.getElementById('volunteer1-phone-link').href = `tel:${volunteer1Phone}`;
-      
-      // Update volunteer 2
       document.getElementById('volunteer2-name').textContent = config.volunteer2_name || defaultConfig.volunteer2_name;
-      const volunteer2Phone = config.volunteer2_phone || defaultConfig.volunteer2_phone;
-      document.getElementById('volunteer2-phone').textContent = volunteer2Phone;
-      document.getElementById('volunteer2-phone-link').href = `tel:${volunteer2Phone}`;
-      
-      // Update volunteer 3
       document.getElementById('volunteer3-name').textContent = config.volunteer3_name || defaultConfig.volunteer3_name;
-      const volunteer3Phone = config.volunteer3_phone || defaultConfig.volunteer3_phone;
-      document.getElementById('volunteer3-phone').textContent = volunteer3Phone;
-      document.getElementById('volunteer3-phone-link').href = `tel:${volunteer3Phone}`;
-      
-      // Update volunteer 4
       document.getElementById('volunteer4-name').textContent = config.volunteer4_name || defaultConfig.volunteer4_name;
-      const volunteer4Phone = config.volunteer4_phone || defaultConfig.volunteer4_phone;
-      document.getElementById('volunteer4-phone').textContent = volunteer4Phone;
-      document.getElementById('volunteer4-phone-link').href = `tel:${volunteer4Phone}`;
+      
+      // Update contact section
+      document.getElementById('contact-coordinator-name').textContent = config.coordinator_name || defaultConfig.coordinator_name;
+      const coordinatorPhone = config.coordinator_phone || defaultConfig.coordinator_phone;
+      document.getElementById('contact-coordinator-phone').textContent = coordinatorPhone;
+      
+      document.getElementById('contact-co-coordinator-name').textContent = config.co_coordinator_name || defaultConfig.co_coordinator_name;
+      const coCoordinatorPhone = config.co_coordinator_phone || defaultConfig.co_coordinator_phone;
+      document.getElementById('contact-co-coordinator-phone').textContent = coCoordinatorPhone;
     }
 
     function mapToCapabilities(config) {
@@ -720,15 +927,7 @@
         ["coordinator_name", config.coordinator_name || defaultConfig.coordinator_name],
         ["coordinator_phone", config.coordinator_phone || defaultConfig.coordinator_phone],
         ["co_coordinator_name", config.co_coordinator_name || defaultConfig.co_coordinator_name],
-        ["co_coordinator_phone", config.co_coordinator_phone || defaultConfig.co_coordinator_phone],
-        ["volunteer1_name", config.volunteer1_name || defaultConfig.volunteer1_name],
-        ["volunteer1_phone", config.volunteer1_phone || defaultConfig.volunteer1_phone],
-        ["volunteer2_name", config.volunteer2_name || defaultConfig.volunteer2_name],
-        ["volunteer2_phone", config.volunteer2_phone || defaultConfig.volunteer2_phone],
-        ["volunteer3_name", config.volunteer3_name || defaultConfig.volunteer3_name],
-        ["volunteer3_phone", config.volunteer3_phone || defaultConfig.volunteer3_phone],
-        ["volunteer4_name", config.volunteer4_name || defaultConfig.volunteer4_name],
-        ["volunteer4_phone", config.volunteer4_phone || defaultConfig.volunteer4_phone]
+        ["co_coordinator_phone", config.co_coordinator_phone || defaultConfig.co_coordinator_phone]
       ]);
     }
 
@@ -777,5 +976,5 @@
       element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
     });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a531cc8f4664162',t:'MTc2NDI2MjA5OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a6bc77b02557e8a',t:'MTc2NDUyMDc0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
